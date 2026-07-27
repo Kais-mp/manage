@@ -264,20 +264,20 @@ export function SudoAdminPanel() {
   }, [inventoryData]);
 
   if (loading) {
-    return <div className="min-h-screen bg-background p-6 text-sm text-muted-foreground">Loading admin panel…</div>;
+    return <div className="min-h-screen font-sans p-8 text-center text-sm text-slate-500 font-bold">Loading admin panel…</div>;
   }
 
   if (!sessionUser || !authorized) {
-    return <div className="min-h-screen bg-background p-6 text-sm text-muted-foreground">Redirecting to admin sign in…</div>;
+    return <div className="min-h-screen font-sans p-8 text-center text-sm text-slate-500 font-bold">Redirecting to admin sign in…</div>;
   }
 
   return (
-    <div className="min-h-screen bg-background px-4 py-8 sm:px-6 lg:px-8">
+    <div className="min-h-screen font-sans px-4 py-8 sm:px-6 lg:px-8 relative">
       <div className="mx-auto flex max-w-7xl flex-col gap-6">
-        <div className="flex flex-col gap-4 rounded-2xl border bg-card p-6 shadow-sm sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex flex-col gap-4 rounded-3xl border border-white/60 dark:border-white/10 bg-white/70 dark:bg-slate-900/65 backdrop-blur-xl p-6 shadow-[0_8px_32px_0_rgba(31,38,135,0.07)] dark:shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <p className="text-sm font-medium text-primary">Internal admin console</p>
-            <h1 className="text-3xl font-semibold tracking-tight">Sudo control center</h1>
+            <p className="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">Internal Admin Console</p>
+            <h1 className="text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white">Sudo Control Center</h1>
             <p className="mt-2 text-sm text-muted-foreground">Monitor inventory, sales, and the invisible activity trail across the app.</p>
           </div>
           <div className="flex items-center gap-3">
