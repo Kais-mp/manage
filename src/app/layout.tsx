@@ -36,6 +36,12 @@ export default function RootLayout({
           enableSystem={false}
           disableTransitionOnChange
         >
+          {/* Ambient glassmorphism gradient mesh background */}
+          <div className="fixed inset-0 pointer-events-none overflow-hidden z-[-1]">
+            <div className="absolute -top-32 -left-32 w-96 h-96 bg-indigo-500/20 dark:bg-indigo-600/25 rounded-full blur-[120px]" />
+            <div className="absolute top-1/3 -right-32 w-96 h-96 bg-violet-500/20 dark:bg-violet-600/25 rounded-full blur-[120px]" />
+            <div className="absolute -bottom-32 left-1/3 w-96 h-96 bg-sky-500/20 dark:bg-cyan-600/20 rounded-full blur-[120px]" />
+          </div>
           <RouteLoadingIndicator />
           <PageLoading />
           <AppLock />
