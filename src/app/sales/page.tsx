@@ -495,29 +495,27 @@ export default function SalesPage() {
   const totalPages = Math.max(1, Math.ceil((total || 0) / PER_PAGE));
 
   return (
-    <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950 font-sans px-4 py-6 md:px-6 md:py-8">
-      <div className="max-w-5xl mx-auto mb-10">
-        <Navbar />
-      </div>
+    <div className="min-h-screen font-sans px-4 py-6 md:px-8 md:py-10 relative">
+      <Navbar />
 
-      <main className="max-w-5xl mx-auto space-y-5">
+      <main className="max-w-6xl mx-auto space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
-            <h1 className="text-2xl font-semibold">All Sales</h1>
-            <p className="text-sm text-muted-foreground">Browse all sales.</p>
+            <h1 className="text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white">Sales Log & Invoices</h1>
+            <p className="text-sm text-slate-600 dark:text-slate-400">Browse customer transaction records and generate printable invoices.</p>
           </div>
-<div className="flex items-center gap-3 w-full">
-  <Input
-    className="flex-1"
-    placeholder="Search by customer, phone, or laptop"
-    value={query}
-    onChange={(e) => setQuery(e.target.value)}
-  />
+          <div className="flex items-center gap-3 w-full sm:w-auto">
+            <Input
+              className="w-full sm:w-72"
+              placeholder="Search by customer, phone, or laptop..."
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+            />
 
-  <Link href="/inventory">
-    <Button variant="outline">Back</Button>
-  </Link>
-</div>
+            <Link href="/inventory">
+              <Button variant="outline" size="sm">Back</Button>
+            </Link>
+          </div>
         </div>
 
         <Card>
