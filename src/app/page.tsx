@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";
 import { Laptop as LaptopType } from "@/types/laptop";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function Home() {
   const [laptops, setLaptops] = useState<LaptopType[]>([]);
@@ -109,59 +110,70 @@ export default function Home() {
           LapTrack
         </h1>
         <p className="max-w-2xl text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed font-medium">
-          A high-performance glassmorphic workspace to track stock, manage dealer network, and monitor sales across your locations.
+          A workspace to track stock, manage dealer network, and monitor sales across your locations.
         </p>
       </header>
 
       <Navbar />
 
-      <main className="max-w-6xl mx-auto space-y-10">
+      <motion.main 
+        initial={{ opacity: 0, y: 15 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.35, ease: "easeOut" }}
+        className="max-w-6xl mx-auto space-y-10"
+      >
         {/* Quick Stats */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <Card className="glass-card-hover group relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-24 h-24 bg-indigo-500/10 rounded-bl-full pointer-events-none transition-all group-hover:scale-110" />
-            <CardContent className="p-6">
-              <div className="flex items-center gap-4">
-                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20 shadow-sm">
-                  <Package className="h-6 w-6" />
+          <motion.div whileHover={{ y: -4 }} transition={{ type: "spring", stiffness: 300 }}>
+            <Card className="glass-card-hover group relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-24 h-24 bg-indigo-500/10 rounded-bl-full pointer-events-none transition-all group-hover:scale-110" />
+              <CardContent className="p-6">
+                <div className="flex items-center gap-4">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20 shadow-sm">
+                    <Package className="h-6 w-6" />
+                  </div>
+                  <div>
+                    <p className="text-xs font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400">Available Stock</p>
+                    <p className="mt-1 text-3xl font-extrabold text-slate-900 dark:text-white">{loading ? '...' : totalLaptops}</p>
+                  </div>
                 </div>
-                <div>
-                  <p className="text-xs font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400">Available Stock</p>
-                  <p className="mt-1 text-3xl font-extrabold text-slate-900 dark:text-white">{loading ? '...' : totalLaptops}</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+              </CardContent>
+            </Card>
+          </motion.div>
 
-          <Card className="glass-card-hover group relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-24 h-24 bg-sky-500/10 rounded-bl-full pointer-events-none transition-all group-hover:scale-110" />
-            <CardContent className="p-6">
-              <div className="flex items-center gap-4">
-                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-sky-500/10 text-sky-600 dark:text-sky-400 border border-sky-500/20 shadow-sm">
-                  <Store className="h-6 w-6" />
+          <motion.div whileHover={{ y: -4 }} transition={{ type: "spring", stiffness: 300 }}>
+            <Card className="glass-card-hover group relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-24 h-24 bg-sky-500/10 rounded-bl-full pointer-events-none transition-all group-hover:scale-110" />
+              <CardContent className="p-6">
+                <div className="flex items-center gap-4">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-sky-500/10 text-sky-600 dark:text-sky-400 border border-sky-500/20 shadow-sm">
+                    <Store className="h-6 w-6" />
+                  </div>
+                  <div>
+                    <p className="text-xs font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400">Mini Tech</p>
+                    <p className="mt-1 text-3xl font-extrabold text-slate-900 dark:text-white">{loading ? '...' : miniTechCount}</p>
+                  </div>
                 </div>
-                <div>
-                  <p className="text-xs font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400">Mini Tech</p>
-                  <p className="mt-1 text-3xl font-extrabold text-slate-900 dark:text-white">{loading ? '...' : miniTechCount}</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+              </CardContent>
+            </Card>
+          </motion.div>
 
-          <Card className="glass-card-hover group relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-24 h-24 bg-violet-500/10 rounded-bl-full pointer-events-none transition-all group-hover:scale-110" />
-            <CardContent className="p-6">
-              <div className="flex items-center gap-4">
-                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-violet-500/10 text-violet-600 dark:text-violet-400 border border-violet-500/20 shadow-sm">
-                  <Store className="h-6 w-6" />
+          <motion.div whileHover={{ y: -4 }} transition={{ type: "spring", stiffness: 300 }}>
+            <Card className="glass-card-hover group relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-24 h-24 bg-violet-500/10 rounded-bl-full pointer-events-none transition-all group-hover:scale-110" />
+              <CardContent className="p-6">
+                <div className="flex items-center gap-4">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-violet-500/10 text-violet-600 dark:text-violet-400 border border-violet-500/20 shadow-sm">
+                    <Store className="h-6 w-6" />
+                  </div>
+                  <div>
+                    <p className="text-xs font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400">T.M. Communication</p>
+                    <p className="mt-1 text-3xl font-extrabold text-slate-900 dark:text-white">{loading ? '...' : tmCommCount}</p>
+                  </div>
                 </div>
-                <div>
-                  <p className="text-xs font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400">T.M. Communication</p>
-                  <p className="mt-1 text-3xl font-extrabold text-slate-900 dark:text-white">{loading ? '...' : tmCommCount}</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+              </CardContent>
+            </Card>
+          </motion.div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -287,52 +299,61 @@ export default function Home() {
           )}
         </section>
 
-        {selectedLaptop && (
-          <Card className="border-2 border-indigo-500/30">
-            <CardHeader className="pb-3">
-              <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-                <div>
-                  <CardTitle className="text-2xl">Preview: {selectedLaptop.name}</CardTitle>
-                  <CardDescription>Quick overview of selected product specs and pricing.</CardDescription>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Link href={`/laptops/${selectedLaptop.slug}`}>
-                    <Button variant="default" size="sm">
-                      Open Full Details
-                    </Button>
-                  </Link>
-                  <Button variant="outline" size="sm" onClick={() => setSelectedLaptop(null)}>
-                    Close
-                  </Button>
-                </div>
-              </div>
-            </CardHeader>
-            <CardContent className="grid gap-4 md:grid-cols-2 pt-2">
-              <div className="space-y-3 rounded-2xl bg-slate-100/60 dark:bg-slate-800/40 p-4 border border-slate-200/70 dark:border-white/10 text-sm">
-                <div>
-                  <span className="text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400 font-bold">Store</span>
-                  <p className="font-bold text-slate-900 dark:text-white mt-0.5">{selectedLaptop.shop_name}</p>
-                </div>
-                <div>
-                  <span className="text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400 font-bold">Cost Price</span>
-                  <p className="font-bold text-slate-800 dark:text-slate-200 mt-0.5">Rs. {(selectedLaptop.cost_price ?? 0).toLocaleString()}</p>
-                </div>
-                <div>
-                  <span className="text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400 font-bold">Selling Price</span>
-                  <p className="font-extrabold text-indigo-600 dark:text-indigo-400 mt-0.5">Rs. {(selectedLaptop.sale_price ?? selectedLaptop.price ?? 0).toLocaleString()}</p>
-                </div>
-                <div>
-                  <span className="text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400 font-bold">Linked Dealers</span>
-                  <p className="text-slate-700 dark:text-slate-300 mt-0.5">{selectedLaptop.dealer_ids?.length ? latestDealersMap[selectedLaptop.id] ?? selectedLaptop.dealer_ids.join(', ') : '—'}</p>
-                </div>
-              </div>
-              <div className="rounded-2xl bg-slate-100/60 dark:bg-slate-800/40 p-4 border border-slate-200/70 dark:border-white/10 text-sm">
-                <span className="text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400 font-bold">Specifications</span>
-                <p className="mt-2 whitespace-pre-line text-slate-700 dark:text-slate-300 leading-relaxed">{selectedLaptop.specs}</p>
-              </div>
-            </CardContent>
-          </Card>
-        )}
+        <AnimatePresence>
+          {selectedLaptop && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.96, y: 10 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.96, y: 10 }}
+              transition={{ duration: 0.25 }}
+            >
+              <Card className="border-2 border-indigo-500/30">
+                <CardHeader className="pb-3">
+                  <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+                    <div>
+                      <CardTitle className="text-2xl">Preview: {selectedLaptop.name}</CardTitle>
+                      <CardDescription>Quick overview of selected product specs and pricing.</CardDescription>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Link href={`/laptops/${selectedLaptop.slug}`}>
+                        <Button variant="default" size="sm">
+                          Open Full Details
+                        </Button>
+                      </Link>
+                      <Button variant="outline" size="sm" onClick={() => setSelectedLaptop(null)}>
+                        Close
+                      </Button>
+                    </div>
+                  </div>
+                </CardHeader>
+                <CardContent className="grid gap-4 md:grid-cols-2 pt-2">
+                  <div className="space-y-3 rounded-2xl bg-slate-100/60 dark:bg-slate-800/40 p-4 border border-slate-200/70 dark:border-white/10 text-sm">
+                    <div>
+                      <span className="text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400 font-bold">Store</span>
+                      <p className="font-bold text-slate-900 dark:text-white mt-0.5">{selectedLaptop.shop_name}</p>
+                    </div>
+                    <div>
+                      <span className="text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400 font-bold">Cost Price</span>
+                      <p className="font-bold text-slate-800 dark:text-slate-200 mt-0.5">Rs. {(selectedLaptop.cost_price ?? 0).toLocaleString()}</p>
+                    </div>
+                    <div>
+                      <span className="text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400 font-bold">Selling Price</span>
+                      <p className="font-extrabold text-indigo-600 dark:text-indigo-400 mt-0.5">Rs. {(selectedLaptop.sale_price ?? selectedLaptop.price ?? 0).toLocaleString()}</p>
+                    </div>
+                    <div>
+                      <span className="text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400 font-bold">Linked Dealers</span>
+                      <p className="text-slate-700 dark:text-slate-300 mt-0.5">{selectedLaptop.dealer_ids?.length ? latestDealersMap[selectedLaptop.id] ?? selectedLaptop.dealer_ids.join(', ') : '—'}</p>
+                    </div>
+                  </div>
+                  <div className="rounded-2xl bg-slate-100/60 dark:bg-slate-800/40 p-4 border border-slate-200/70 dark:border-white/10 text-sm">
+                    <span className="text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400 font-bold">Specifications</span>
+                    <p className="mt-2 whitespace-pre-line text-slate-700 dark:text-slate-300 leading-relaxed">{selectedLaptop.specs}</p>
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         <section className="mt-16 text-center py-10 border-t border-slate-200/60 dark:border-white/10">
           <p className="text-xs uppercase tracking-widest font-bold text-slate-400 dark:text-slate-500 mb-6">Connected Stores</p>
@@ -347,7 +368,7 @@ export default function Home() {
             </div>
           </div>
         </section>
-      </main>
+      </motion.main>
 
       <footer className="max-w-6xl mx-auto mt-16 pt-6 border-t border-slate-200/60 dark:border-white/10 text-center text-xs text-slate-500">
         <p>&copy; 2026 LapTrack Inventory System. All rights reserved.</p>
