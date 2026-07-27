@@ -5,10 +5,15 @@ export default function InventoryPage() {
   return (
     <div className="min-h-screen font-sans px-4 py-6 md:px-8 md:py-10 relative">
       <header className="max-w-5xl mx-auto mb-6 flex flex-col items-center text-center">
-        <div className="mb-2 flex items-center justify-center">
+        <div className="mb-2 flex items-center justify-center min-h-[96px] min-w-[96px]">
           <img
             src="/icon.png"
             alt="LapTrack Logo"
+            width={96}
+            height={96}
+            // @ts-ignore
+            fetchPriority="high"
+            decoding="async"
             className="h-24 w-24 object-contain drop-shadow-[0_10px_20px_rgba(79,70,229,0.25)] transition-transform hover:scale-105 duration-300"
           />
         </div>
