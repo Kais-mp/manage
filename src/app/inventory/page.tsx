@@ -1,31 +1,28 @@
 import { LaptopManagement } from "@/components/laptop-management";
-import { Laptop } from "lucide-react";
 import { Navbar } from "@/components/navbar";
 
 export default function InventoryPage() {
   return (
-    <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950 font-sans px-4 py-6 md:px-6 md:py-8">
-      <header className="max-w-5xl mx-auto mb-8 flex flex-col items-center text-center">
-        <div className="mb-0 flex items-center justify-center">
-  <img
-    src="/icon.png"
-    alt="LapTrack Logo"
-    className="h-30 w-30 object-contain drop-shadow-lg"
-  />
-</div>
-        <h1 className="text-4xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50">
-          Laptop Inventory
+    <div className="min-h-screen font-sans px-4 py-6 md:px-8 md:py-10 relative">
+      <header className="max-w-5xl mx-auto mb-6 flex flex-col items-center text-center">
+        <div className="mb-2 flex items-center justify-center">
+          <img
+            src="/icon.png"
+            alt="LapTrack Logo"
+            className="h-24 w-24 object-contain drop-shadow-[0_10px_20px_rgba(79,70,229,0.25)] transition-transform hover:scale-105 duration-300"
+          />
+        </div>
+        <h1 className="text-4xl font-extrabold tracking-tight bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 dark:from-white dark:via-indigo-200 dark:to-white bg-clip-text text-transparent">
+          Laptop Catalog & Inventory
         </h1>
-        <p className="text-zinc-600 dark:text-zinc-400">
-          Manage and track all available laptops across your shops.
+        <p className="text-slate-600 dark:text-slate-300 text-sm sm:text-base mt-1 font-medium">
+          Real-time stock control, model specifications, pricing, and sales tracking.
         </p>
       </header>
 
-      <div className="max-w-5xl mx-auto mb-10">
-        <Navbar />
-      </div>
+      <Navbar />
 
-      <main className="max-w-5xl mx-auto">
+      <main className="max-w-6xl mx-auto">
         <LaptopManagement />
       </main>
     </div>
