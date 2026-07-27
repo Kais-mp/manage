@@ -10,12 +10,12 @@ import { Dealer } from '@/types/dealer';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { Label } from '@/components/ui/label';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { toast } from 'sonner';
 import { Navbar } from '@/components/navbar';
+import { ArrowLeft, Users, UserPlus } from 'lucide-react';
 
 const dealerSchema = z.object({
   name: z.string().min(2, { message: 'Dealer name is required.' }),
@@ -111,51 +111,49 @@ export default function DealersPage() {
   }
 
   return (
-    <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950 font-sans px-4 py-6 md:px-6 md:py-8">
-      <div className="max-w-5xl mx-auto mb-10">
-        <Navbar />
-      </div>
-      <header className="max-w-5xl mx-auto mb-6">
-        <div className="mb-6 flex w-full max-w-3xl flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <div className="flex items-start gap-4">
-            <div className="mb-0 flex items-center justify-center">
-              <img
-                src="/icon.png"
-                alt="LapTrack Logo"
-                className="h-20 w-20 rounded-3xl object-contain drop-shadow-lg sm:h-24 sm:w-24"
-              />
+    <div className="min-h-screen font-sans px-4 py-6 md:px-8 md:py-10 relative">
+      <Navbar />
+
+      <header className="max-w-5xl mx-auto mb-8">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex items-center gap-4">
+            <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20 shadow-sm">
+              <Users className="h-8 w-8" />
             </div>
-            <div className="text-left">
-              <h1 className="text-4xl sm:text-5xl font-semibold tracking-tight text-slate-950 dark:text-white mb-3">Dealer management</h1>
-              <p className="max-w-xl text-sm sm:text-base text-slate-600 dark:text-slate-400 leading-7">
-                Add and manage dealer contacts. Dealers can be assigned to laptops from the inventory page.
+            <div>
+              <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white">Dealer Network</h1>
+              <p className="text-sm text-slate-600 dark:text-slate-400">
+                Manage supplier contacts and associate them with laptops in your inventory.
               </p>
             </div>
           </div>
-          <div className="flex-shrink-0">
-            <Button variant="outline" onClick={() => router.back()} className="rounded-full">
-              Back
+          <div>
+            <Button variant="outline" size="sm" onClick={() => router.back()}>
+              <ArrowLeft className="mr-1.5 h-4 w-4" /> Back
             </Button>
           </div>
         </div>
       </header>
 
-      <main className="max-w-5xl mx-auto space-y-6" ref={formRef}>
-        <Card className="rounded-3xl border border-slate-200/70 bg-white shadow-sm dark:border-zinc-800 dark:bg-zinc-950">
-          <CardHeader className="p-6">
-            <CardTitle className="text-2xl">{editingDealer ? 'Edit dealer' : 'Add a new dealer'}</CardTitle>
+      <main className="max-w-5xl mx-auto space-y-8" ref={formRef}>
+        <Card className="glass-card">
+          <CardHeader className="p-6 pb-4">
+            <CardTitle className="text-xl flex items-center gap-2">
+              <UserPlus className="h-5 w-5 text-indigo-600 dark:text-indigo-400" />
+              <span>{editingDealer ? 'Edit Dealer Details' : 'Add New Dealer'}</span>
+            </CardTitle>
             <CardDescription>
-              {editingDealer ? 'Update the dealer contact details.' : 'Keep contact details and optional remarks for your supplier network.'}
+              {editingDealer ? 'Update existing supplier contact details.' : 'Register new dealer contact and optional remarks.'}
             </CardDescription>
           </CardHeader>
-          <CardContent className="p-6">
+          <CardContent className="p-6 pt-0">
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-4 sm:grid-cols-2">
                 <FormField control={form.control} name="name" render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Name</FormLabel>
+                    <FormLabel>Dealer Name</FormLabel>
                     <FormControl>
-                      <Input placeholder="Dealer name" {...field} />
+                      <Input placeholder="e.g. Al-Madina Traders" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -174,20 +172,20 @@ export default function DealersPage() {
                     <FormItem>
                       <FormLabel>Remarks (optional)</FormLabel>
                       <FormControl>
-                        <Textarea placeholder="Any additional notes" {...field} />
+                        <Textarea placeholder="Payment terms, locations or additional notes..." className="bg-white/60 dark:bg-slate-900/60 backdrop-blur-md border border-slate-200/80 dark:border-white/10 rounded-2xl p-3 text-sm focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/15 transition-all outline-none" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )} />
                 </div>
-                <div className="sm:col-span-2 flex flex-col gap-2 sm:flex-row sm:justify-end">
+                <div className="sm:col-span-2 flex flex-col gap-2 sm:flex-row sm:justify-end pt-2">
                   {editingDealer && (
-                    <Button type="button" variant="outline" className="rounded-full px-5" onClick={cancelEdit}>
+                    <Button type="button" variant="outline" onClick={cancelEdit}>
                       Cancel
                     </Button>
                   )}
-                  <Button type="submit" className="rounded-full px-5" disabled={isSubmitting}>
-                    {isSubmitting ? (editingDealer ? 'Saving…' : 'Saving…') : (editingDealer ? 'Update dealer' : 'Save dealer')}
+                  <Button type="submit" disabled={isSubmitting}>
+                    {isSubmitting ? 'Saving…' : (editingDealer ? 'Update Dealer' : 'Save Dealer')}
                   </Button>
                 </div>
               </form>
@@ -195,57 +193,55 @@ export default function DealersPage() {
           </CardContent>
         </Card>
 
-        <section className="rounded-3xl border border-slate-200/70 bg-white shadow-sm dark:border-zinc-800 dark:bg-zinc-950">
-          <div className="border-b border-slate-200/70 px-6 py-5 dark:border-zinc-800">
-            <h2 className="text-xl font-semibold text-slate-950 dark:text-white">Dealer contacts</h2>
+        <Card className="glass-card p-0 overflow-hidden">
+          <div className="border-b border-slate-200/80 dark:border-white/10 px-6 py-4 bg-slate-100/40 dark:bg-slate-800/20 backdrop-blur-md">
+            <h2 className="text-lg font-bold text-slate-900 dark:text-white">Registered Dealers ({dealers.length})</h2>
           </div>
-          <div className="overflow-x-auto p-6">
-            <table className="min-w-full divide-y divide-slate-200 text-left text-sm dark:divide-zinc-800">
-              <thead className="bg-slate-50 dark:bg-zinc-900 text-slate-500 uppercase tracking-[.2em] text-xs">
-                <tr>
-                  <th className="px-4 py-3">Dealer</th>
-                  <th className="px-4 py-3">Contact</th>
-                  <th className="px-4 py-3">Remarks</th>
-                  <th className="px-4 py-3 text-right">Actions</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-200 dark:divide-zinc-800">
+          <div className="overflow-x-auto">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Dealer Name</TableHead>
+                  <TableHead>Contact Info</TableHead>
+                  <TableHead>Remarks</TableHead>
+                  <TableHead className="text-right">Actions</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
                 {dealers.map((dealer) => (
-                  <tr key={dealer.id} className="hover:bg-slate-50 dark:hover:bg-zinc-900">
-                    <td className="px-4 py-4 font-semibold text-slate-900 dark:text-white">{dealer.name}</td>
-                    <td className="px-4 py-4 text-slate-600 dark:text-slate-300">{dealer.contact}</td>
-                    <td className="px-4 py-4 text-slate-500 dark:text-slate-400">{dealer.remarks || '—'}</td>
-                    <td className="px-4 py-4 text-right space-x-2">
+                  <TableRow key={dealer.id}>
+                    <TableCell className="font-bold text-slate-900 dark:text-white">{dealer.name}</TableCell>
+                    <TableCell className="font-medium text-slate-700 dark:text-slate-300">{dealer.contact}</TableCell>
+                    <TableCell className="text-slate-500 dark:text-slate-400">{dealer.remarks || '—'}</TableCell>
+                    <TableCell className="text-right space-x-2">
                       <Button
                         variant="outline"
                         size="sm"
-                        className="rounded-full"
                         onClick={() => startEditDealer(dealer)}
                       >
                         Edit
                       </Button>
                       <Button
-                        variant="ghost"
+                        variant="destructive"
                         size="sm"
-                        className="rounded-full text-destructive hover:bg-destructive/10 hover:text-destructive"
                         onClick={() => handleDelete(dealer.id)}
                       >
                         Delete
                       </Button>
-                    </td>
-                  </tr>
+                    </TableCell>
+                  </TableRow>
                 ))}
                 {dealers.length === 0 && (
-                  <tr>
-                    <td colSpan={3} className="px-4 py-8 text-center text-slate-500 dark:text-slate-400">
-                      No dealers yet. Add one to link them to laptops in inventory.
-                    </td>
-                  </tr>
+                  <TableRow>
+                    <TableCell colSpan={4} className="py-8 text-center text-slate-500 dark:text-slate-400">
+                      No dealers registered yet. Add one above.
+                    </TableCell>
+                  </TableRow>
                 )}
-              </tbody>
-            </table>
+              </TableBody>
+            </Table>
           </div>
-        </section>
+        </Card>
       </main>
     </div>
   );
