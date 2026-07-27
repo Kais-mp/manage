@@ -89,10 +89,15 @@ export default function Home() {
   return (
     <div className="min-h-screen font-sans px-4 py-6 md:px-8 md:py-10 relative">
       <header className="max-w-4xl mx-auto mb-6 flex flex-col items-center text-center">
-        <div className="mb-2 flex items-center justify-center">
+        <div className="mb-2 flex items-center justify-center min-h-[112px] min-w-[112px]">
           <img
             src="/icon.png"
             alt="LapTrack Logo"
+            width={112}
+            height={112}
+            // @ts-ignore
+            fetchPriority="high"
+            decoding="async"
             className="h-28 w-28 object-contain drop-shadow-[0_10px_20px_rgba(79,70,229,0.25)] transition-transform hover:scale-105 duration-300"
           />
         </div>
